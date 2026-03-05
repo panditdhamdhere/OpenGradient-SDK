@@ -42,7 +42,7 @@ Perform inference on an LLM model using chat via TEE.
 
 **Arguments**
 
-* **`model (TEE_LLM)`**: The model to use (e.g., TEE_LLM.CLAUDE_3_5_HAIKU).
+* **`model (TEE_LLM)`**: The model to use (e.g., TEE_LLM.CLAUDE_HAIKU_4_5).
 * **`messages (List[Dict])`**: The messages that will be passed into the chat.
 * **`max_tokens (int)`**: Maximum number of tokens for LLM output. Default is 100.
 * **`stop_sequence (List[str], optional)`**: List of stop sequences for LLM.
@@ -85,7 +85,7 @@ Perform inference on an LLM model using completions via TEE.
 
 **Arguments**
 
-* **`model (TEE_LLM)`**: The model to use (e.g., TEE_LLM.CLAUDE_3_5_HAIKU).
+* **`model (TEE_LLM)`**: The model to use (e.g., TEE_LLM.CLAUDE_HAIKU_4_5).
 * **`prompt (str)`**: The input prompt for the LLM.
 * **`max_tokens (int)`**: Maximum number of tokens for LLM output. Default is 100.
 * **`stop_sequence (List[str], optional)`**: List of stop sequences for LLM. Default is None.
