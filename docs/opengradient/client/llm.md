@@ -66,6 +66,23 @@ Union[TextGenerationOutput, TextGenerationStream]:
 
 * **`OpenGradientError`**: If the inference fails.
 
+**`TextGenerationOutput` fields:**
+
+* **`transaction_hash`**: Blockchain transaction hash.  Set to
+        ``"external"`` for TEE-routed providers.
+* **`finish_reason`**: Reason the model stopped generating
+        (e.g. ``"stop"``, ``"tool_call"``, ``"error"``).
+        Only populated for chat requests.
+* **`chat_output`**: Dictionary with the assistant message returned by
+        a chat request.  Contains ``role``, ``content``, and
+        optionally ``tool_calls``.
+* **`completion_output`**: Raw text returned by a completion request.
+* **`payment_hash`**: Payment hash for the x402 transaction.
+* **`tee_signature`**: RSA-PSS signature over the response produced
+        by the TEE enclave.
+* **`tee_timestamp`**: ISO-8601 timestamp from the TEE at signing
+        time.
+
 ---
 
 #### `close()`
@@ -107,6 +124,23 @@ TextGenerationOutput: Generated text results including:
 
 * **`OpenGradientError`**: If the inference fails.
 
+**`TextGenerationOutput` fields:**
+
+* **`transaction_hash`**: Blockchain transaction hash.  Set to
+        ``"external"`` for TEE-routed providers.
+* **`finish_reason`**: Reason the model stopped generating
+        (e.g. ``"stop"``, ``"tool_call"``, ``"error"``).
+        Only populated for chat requests.
+* **`chat_output`**: Dictionary with the assistant message returned by
+        a chat request.  Contains ``role``, ``content``, and
+        optionally ``tool_calls``.
+* **`completion_output`**: Raw text returned by a completion request.
+* **`payment_hash`**: Payment hash for the x402 transaction.
+* **`tee_signature`**: RSA-PSS signature over the response produced
+        by the TEE enclave.
+* **`tee_timestamp`**: ISO-8601 timestamp from the TEE at signing
+        time.
+
 ---
 
 #### `ensure_opg_approval()`
@@ -135,3 +169,9 @@ Permit2ApprovalResult: Contains ``allowance_before``,
 
 * **`ValueError`**: If the OPG amount is less than 0.05.
 * **`OpenGradientError`**: If the approval transaction fails.
+
+**`Permit2ApprovalResult` fields:**
+
+* **`allowance_before`**: The Permit2 allowance before the method ran.
+* **`allowance_after`**: The Permit2 allowance after the method ran.
+* **`tx_hash`**: Transaction hash of the approval, or None if no transaction was needed.

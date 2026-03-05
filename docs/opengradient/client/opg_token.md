@@ -39,6 +39,12 @@ Permit2ApprovalResult: Contains ``allowance_before``,
 
 * **`OpenGradientError`**: If the approval transaction fails.
 
+**`Permit2ApprovalResult` fields:**
+
+* **`allowance_before`**: The Permit2 allowance before the method ran.
+* **`allowance_after`**: The Permit2 allowance after the method ran.
+* **`tx_hash`**: Transaction hash of the approval, or None if no transaction was needed.
+
 ## Classes
 
 ### `Permit2ApprovalResult`

@@ -308,6 +308,15 @@ Parse a StreamChunk from SSE data dictionary.
 
 StreamChunk instance
 
+**`StreamChunk` fields:**
+
+* **`choices`**: List of streaming choices (usually contains one choice)
+* **`model`**: Model identifier
+* **`usage`**: Token usage information (only in final chunk)
+* **`is_final`**: Whether this is the final chunk (before [DONE])
+* **`tee_signature`**: RSA-PSS signature over the response, present on the final chunk
+* **`tee_timestamp`**: ISO timestamp from the TEE at signing time, present on the final chunk
+
 #### Variables
 
 * static `choices` : List[`StreamChoice`]

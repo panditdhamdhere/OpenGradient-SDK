@@ -49,3 +49,20 @@ TextGenerationOutput: Generated text results including chat_output and finish_re
 **Raises**
 
 * **`OpenGradientError`**: If the request fails.
+
+**`TextGenerationOutput` fields:**
+
+* **`transaction_hash`**: Blockchain transaction hash.  Set to
+        ``"external"`` for TEE-routed providers.
+* **`finish_reason`**: Reason the model stopped generating
+        (e.g. ``"stop"``, ``"tool_call"``, ``"error"``).
+        Only populated for chat requests.
+* **`chat_output`**: Dictionary with the assistant message returned by
+        a chat request.  Contains ``role``, ``content``, and
+        optionally ``tool_calls``.
+* **`completion_output`**: Raw text returned by a completion request.
+* **`payment_hash`**: Payment hash for the x402 transaction.
+* **`tee_signature`**: RSA-PSS signature over the response produced
+        by the TEE enclave.
+* **`tee_timestamp`**: ISO-8601 timestamp from the TEE at signing
+        time.

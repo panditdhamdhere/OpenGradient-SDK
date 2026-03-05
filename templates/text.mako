@@ -83,6 +83,37 @@ def resolve_namespace_target(v):
     v.type_annotation(link=capture)
   return result[0]
 
+def get_return_type_attrs(f):
+  """Get Attributes sections from return type class docstrings."""
+  import typing
+  try:
+    hints = typing.get_type_hints(f.obj)
+    ret = hints.get('return')
+  except Exception:
+    return []
+  if ret is None:
+    return []
+  types_to_check = []
+  origin = getattr(ret, '__origin__', None)
+  if origin is typing.Union:
+    types_to_check = list(ret.__args__)
+  else:
+    types_to_check = [ret]
+  results = []
+  for t in types_to_check:
+    if not isinstance(t, type):
+      continue
+    fqn = t.__module__ + '.' + t.__qualname__
+    dobj = f.module.find_ident(fqn)
+    if dobj is None:
+      dobj = f.module.find_ident(t.__qualname__)
+    if dobj is None or not dobj.docstring:
+      continue
+    bd = breakdown_google(dobj.docstring)
+    if bd and bd[1].get('Attributes'):
+      results.append((t.__name__, bd[1]['Attributes']))
+  return results
+
 def linkify(text, mod):
   """Convert backtick-wrapped qualified names to markdown links."""
   cur_parts = mod.name.split('.')
@@ -195,6 +226,17 @@ ${d.docstring}
 % endif
 % endif
 </%def>\
+<%def name="show_return_type_attrs(f)">\
+<%
+ret_attrs = get_return_type_attrs(f)
+%>\
+% for type_name, attrs in ret_attrs:
+
+**`${type_name}` fields:**
+
+${show_term_list(attrs)}\
+% endfor
+</%def>\
 <%def name="show_func(f, qual='', level=3)">\
 <%
 params = ', '.join(f.params(annotate=show_type_annotations, link=link))
@@ -210,6 +252,7 @@ ${header('`' + f.name + '()`', level)}
 ${prefix}${f.funcdef()} ${f.name}(${params})${return_type}
 ```
 ${show_desc(f)}\
+${show_return_type_attrs(f)}\
 </%def>\
 <%def name="show_funcs(fs, qual='', level=3)">\
 % for f in fs:
