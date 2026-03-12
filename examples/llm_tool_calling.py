@@ -51,7 +51,7 @@ async def main():
     ]
 
     # One-time Permit2 approval for OPG spending (idempotent)
-    llm.ensure_opg_approval(opg_amount=5)
+    llm.ensure_opg_approval(opg_amount=0.1)
 
     print("Testing Gemini tool calls...")
     print(f"Model: {og.TEE_LLM.GEMINI_2_5_FLASH_LITE}")
